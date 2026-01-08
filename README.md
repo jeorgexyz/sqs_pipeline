@@ -3,13 +3,7 @@
 A production-ready GenStage-based data processing pipeline for AWS S3/SQS events.
 
 ## Architecture
-
-```
-S3/SQS → [Producer] → [ProducerConsumer] → [Consumer] → Output
-                ↓              ↓                ↓
-            Polls SQS    Downloads S3      Processes & 
-                         Files             Deletes from SQS
-```
+   ![Architecture Diagram](images/architecture-diagram.png)
 
 ### Components
 
