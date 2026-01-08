@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # LocalStack for local AWS services
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,sqs
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - localstack-data:/tmp/localstack
+
+  # SQS Pipeline application
+  sqs-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - localstack
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_REGION=us-east-1
+      - SQS_QUEUE_URL=http://localstack:4566/000000000000/test-queue
+    volumes:
+      - ./output:/app/output
+    restart: unless-stopped
+
+volumes:
+  localstack-data:

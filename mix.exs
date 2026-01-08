@@ -1,30 +1,33 @@
-defmodule Gtube.MixProject do
+defmodule SqsPipeline.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :gtube,
-      version: "0.1.0",
+      app: :sqs_pipeline,
+      version: "0.2.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger],
-      mod: {Gtube.Application, []}
+      mod: {SqsPipeline.Application, []}
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:gen_stage, "~> 1.0.0"},
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:gen_stage, "~> 1.2"},
+      {:ex_aws, "~> 2.5"},
+      {:ex_aws_s3, "~> 2.4"},
+      {:ex_aws_sqs, "~> 3.4"},
+      {:hackney, "~> 1.18"},
+      {:sweet_xml, "~> 0.7"},
+      {:jason, "~> 1.4"},
+      {:configparser_ex, "~> 4.0"}
     ]
   end
 end
